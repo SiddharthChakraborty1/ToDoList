@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menuAddNote:
                 Intent intent = new Intent(MainActivity.this,TakeNoteActivty.class);
+
                 PrefConfig.writeList(getApplicationContext());
                 startActivity(intent);
 
@@ -67,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
         notes = new ArrayList<>();
 
+        notes.add("Click to add new task");
+
+
+
+
+
 
 
 
@@ -74,24 +81,33 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("reach",Integer.toString(notes.size()));
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.todolist", Context.MODE_PRIVATE);
-        if(sharedPreferences.getBoolean("first_time",true))
+        SharedPreferences shared = this.getSharedPreferences("com.example.todolist", Context.MODE_PRIVATE);
+        if(shared.getBoolean("first_time",true) || notes.size()==0)
         {
-            notes.add("Click to add task");
-            sharedPreferences.edit().putBoolean("first_time",false).apply();
+
+
+            shared.edit().putBoolean("first_time",false).apply();
         }
         else
         {   notes = PrefConfig.getList(getApplicationContext());
 
+
+
         }
+
+        PrefConfig.writeList(getApplicationContext());
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(notes);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+
+
+
 
 
 

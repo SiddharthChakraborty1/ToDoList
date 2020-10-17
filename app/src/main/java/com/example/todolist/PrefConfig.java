@@ -26,6 +26,8 @@ public class PrefConfig {
         editor.putString(LIST_KEY,jString);
         editor.apply();
 
+       // Toast.makeText(context, Integer.toString(MainActivity.notes.size()), Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -36,6 +38,7 @@ public class PrefConfig {
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<String>>(){}.getType();
         ArrayList<String> list = gson.fromJson(jString,type);
+       //Toast.makeText(context, Integer.toString(MainActivity.notes.size()), Toast.LENGTH_SHORT).show();
 
         return list;
     }
