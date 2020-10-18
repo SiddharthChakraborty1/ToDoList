@@ -61,18 +61,27 @@ public class TakeNoteActivty extends AppCompatActivity {
 
     public void addNote(View view)
     {
-        if(position == -1) {
-            MainActivity.notes.add(task.getText().toString());
+
+        if(task.getText().toString().isEmpty()) {
+            task.setError("Can't insert empty tasks");
+            task.requestFocus();
+        }
+        else {
+
+            if (position == -1) {
+                MainActivity.notes.add(task.getText().toString());
+
+            } else {
+                MainActivity.notes.set(position, task.getText().toString());
+            }
+            PrefConfig.writeList(getApplicationContext());
+            Log.i("Updated", Integer.toString(MainActivity.notes.size()));
+            MainActivity.recyclerView.getAdapter().notifyDataSetChanged();
+            finish();
 
         }
-        else
-        {
-            MainActivity.notes.set(position,task.getText().toString());
-        }
-        PrefConfig.writeList(getApplicationContext());
-        Log.i("Updated", Integer.toString(MainActivity.notes.size()));
-        MainActivity.recyclerView.getAdapter().notifyDataSetChanged();
-        finish();
+
+
 
 
 
